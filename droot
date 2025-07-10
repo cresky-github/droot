@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 input_file output_file"
+    exit 1
+fi
+
+cd /
+mkdir -p /tmp/droot
+cd /tmp/droot
+
+sort -u /etc/smartdns/dset/tld.ext.dset -o tld.dset
+
+awk -v FS="." -v OFS="." 'NF>1{print $(NF-1),$NF}' $1 | sort -u -o domain.dset
+comm -23 domain.dset tld.dset | sort -u -o domain.dset
+awk -v FS="." -v OFS="." 'NF>2{print $(NF-2),$(NF-1),$NF}' $1 | sort -u -o domain.3.dset
+awk -v FS="." -v OFS="." 'NF>2{print $(NF-1),$NF}' $1 | sort -u -o domain.3.2.dset
+comm -12 domain.3.2.dset tld.dset | sort -u -o domain.3.2.dset
+while read TLD; do
+    grep -F ".$TLD" domain.3.dset >> domain.dset
+done < domain.3.2.dset
+sort -u domain.dset -o $2
+
+cd /root
+rm -rf /tmp/droot
