@@ -1,5 +1,9 @@
 # droot
 
+域名提纯
+
+例：www.google.com -> google.com 
+
 修改 "/etc/smartdns/dset/tld.ext.dset" 成合适的路径
 
 使用语法：
