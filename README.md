@@ -94,4 +94,5 @@ droot 拥有完整的 TLD 分类体系：
 ## Pseudo‑SLD（伪二级域名构造器）
 
 pseudo‑sld 是各国用于构造二级国家域名的“伪 TLD”，例如：
-
+com -> com.cn
+net -> net.jp
