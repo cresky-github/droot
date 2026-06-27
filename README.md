@@ -98,5 +98,6 @@ pseudo‑sld 是各国用于构造二级国家域名的“伪 TLD”，例如：
 - com -> com.cn
 - net -> net.jp
 
+---
 
 ## 使用前，修改脚本数据库文件路径，默认为 "/etc/geo/data/RootZoneDatabase.csv"
