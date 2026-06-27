@@ -1,25 +1,98 @@
 #!/bin/bash
 
+
+NPROC=$(nproc)
+
+
+isort(){ sort --parallel="${NPROC:-$(nproc)}" -u "$1" -o "$1"; }
+osort(){ sort --parallel="${NPROC:-$(nproc)}" -u -o "$1"; }
+
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 input_file output_file"
     exit 1
 fi
 
+DATE=`date +"%Y%m%d%H%M%S"`
 cd /
-mkdir -p /tmp/droot
-cd /tmp/droot
+mkdir -p "/tmp/droot/$DATE"
+cd "/tmp/droot/$DATE"
 
-sort -u /etc/smartdns/dset/tld.ext.dset -o tld.dset
+awk -v FS="|" '
+    $3=="original" { print $2 > "tld.original" }
+    $3=="generic" { print $2 > "tld.generic" }
+    $3=="brand" { print $2 > "tld.brand" }
+    $3=="country-code" { print $2 > "tld.country" }
+    $3=="sponsored" { print $2 > "tld.sponsored" }
+    $3=="infrastructure" { print $2 > "tld.infrastructure" }
+    $3=="pseudo-sld" { print $2 > "tld.pseudo" }
+    { print $2 > "tld.all" }
+' "/etc/geo/data/RootZoneDatabase.csv"
+isort tld.all
+isort tld.original
+isort tld.generic
+isort tld.brand
+isort tld.country
+isort tld.sponsored
+isort tld.infrastructure
+isort tld.pseudo
 
-awk -v FS="." -v OFS="." 'NF>1{print $(NF-1),$NF}' $1 | sort -u -o domain.dset
-comm -23 domain.dset tld.dset | sort -u -o domain.dset
-awk -v FS="." -v OFS="." 'NF>2{print $(NF-2),$(NF-1),$NF}' $1 | sort -u -o domain.3.dset
-awk -v FS="." -v OFS="." 'NF>2{print $(NF-1),$NF}' $1 | sort -u -o domain.3.2.dset
-comm -12 domain.3.2.dset tld.dset | sort -u -o domain.3.2.dset
-while read TLD; do
-    grep -F ".$TLD" domain.3.dset >> domain.dset
-done < domain.3.2.dset
-sort -u domain.dset -o $2
+tr '[:upper:]' '[:lower:]' < $1 | osort INPUT
+awk -v FS="." '{print $NF}' INPUT | osort tld.domain
+comm -23 tld.domain tld.all | osort TLD.EX
+cat tld.infrastructure >> TLD.EX
+sed 's/^/\\./g; s/$/$/' TLD.EX > patterns.TLD.EX
+rg -f patterns.TLD.EX INPUT | osort INPUT.EX
+comm -23 INPUT INPUT.EX | osort INPUT
 
-cd /root
-rm -rf /tmp/droot
+awk -v FS="." -v OFS="." '
+    NF>0 { print $NF > "tld.domain" }
+    NF>1 { print $(NF-1),$NF > "domain.2.dset" }
+    NF>2 { print $(NF-2),$(NF-1),$NF > "domain.3.dset" }
+' INPUT
+isort tld.domain
+isort domain.2.dset
+isort domain.3.dset
+
+> domain.dset
+
+# 需要剔除的 2 label 域名
+# original.country 形式
+# sponsored.country 形式
+# pseudo.country 形式
+sed 's/^/\\./g; s/$/$/' tld.country > patterns.country
+sort --parallel="${NPROC:-$(nproc)}" -u \
+    tld.original \
+    tld.sponsored \
+    tld.pseudo \
+    -o tld.ex
+sed 's/^/\^/; s/$/\\./' tld.ex > patterns.ex
+rg -f patterns.country domain.2.dset \
+    | rg -f patterns.ex \
+    | osort EX
+comm -23 domain.2.dset EX >> domain.dset
+
+# 需要保留的 3 label 域名
+# .original.country 形式
+# .sponsored.country 形式
+# .pseudo.country 形式
+sort --parallel="${NPROC:-$(nproc)}" -u \
+    tld.original \
+    tld.sponsored \
+    tld.pseudo \
+    -o tld.reserve
+sed 's/^/\\./; s/$/\\./' tld.reserve > patterns.reserve
+rg -f patterns.country domain.3.dset \
+    | rg -f patterns.reserve \
+    >> domain.dset
+
+# 删除空行及清洗一些脏数据
+sed -i "/^$/d;/^[-]/d;/-[.]/d;/[-]$/d" domain.dset
+
+# 保存文件
+sort --parallel="${NPROC:-$(nproc)}" -u domain.dset -o $2
+
+cd /tmp || exit 1
+rm -rf "/tmp/droot/$DATE"
+
+
+
