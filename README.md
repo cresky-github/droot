@@ -229,7 +229,7 @@ TLD 校验（对照 RootZoneDatabase.txt）
 |---|---|---|
 | `www.example.com` | `example.com` | domain.2 |
 | `a.b.co.uk` | `b.co.uk` | pseudo-SLD 命中 → domain.3 |
-| `mail.pku.edu.cn` | `pku.edu.cn` | pseudo-SLD:CN 命中 → domain.3 |
+| `mail.pku.bj.cn` | `pku.bj.cn` | pseudo-SLD:CN 命中 → domain.3 |
 | `gov.cn` | `gov.cn` | domain.2 |
 
 ---
