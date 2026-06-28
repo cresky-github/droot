@@ -1,4 +1,5 @@
-[English](https://github.com/cresky-github/droot/edit/main/README.EN.md)
+[English Version](README.EN.md)
+
 
 # droot — 高性能根域名推断引擎
 
