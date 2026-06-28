@@ -364,10 +364,13 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
       ▼
 pseudo-sld:cn 查询
       │
-      ├─ 未命中 ——→ 保留 domain.2（补丁不介入）
       │
-      └─ 命 中 ——→ 提取 domain.3
-                  label[-3] + label[-2] + ".cn"
+      ├─ 命中 ——→ 从 domain.2 剔除
+      │    │      label[-2] + ".cn"
+      │    └─ ——→ 从 domain.3 提取
+      │            label[-3] + label[-2] + ".cn"
+      └─ 未命中 ——→ 不处理 domain.2 和 domain.3 （补丁不介入）
+
 ```
 
 **示例**
