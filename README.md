@@ -363,7 +363,7 @@ pseudo-sld:cn 查询
       │
       ├─ 未命中 ——→ 保留 domain.2（补丁不介入）
       │
-      └─ 命中 --——→ 提取 domain.3
+      └─ 命 中 ——→ 提取 domain.3
                   label[-3] + label[-2] + ".cn"
 ```
 
