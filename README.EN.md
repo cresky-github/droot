@@ -1,4 +1,4 @@
-[中文版](https://github.com/cresky-github/droot/edit/main/README.md)
+[中文版本](README.md)
 
 # droot — High‑Performance Root‑Domain Inference Engine 
 
