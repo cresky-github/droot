@@ -130,7 +130,7 @@ RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写
 
 **示例：**
 
-| pseudo-SLD | 原型 | 说明 |
+| pseudo-sld | 原型 | 说明 |
 |---|---|---|
 | `com.cn` | `com` | 中国商业域 |
 | `net.cn` | `net` | 中国网络域 |
