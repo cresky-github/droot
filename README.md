@@ -369,6 +369,7 @@ pseudo-sld:cn 查询
       │    │      label[-2] + ".cn"
       │    └─ ——→ 从 domain.3 提取
       │            label[-3] + label[-2] + ".cn"
+      │
       └─ 未命中 ——→ 不处理 domain.2 和 domain.3 （补丁不介入）
 
 ```
