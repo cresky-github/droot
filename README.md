@@ -85,7 +85,7 @@ RootZoneDatabase.csv   ← 根区分类数据库(基于IANA官方修改)
 RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写)
 ```
 
-如需更新规则，只需替换对应数据文件，无需修改脚本逻辑。
+如需更新规则，只需修改对应数据文件，无需修改脚本逻辑。
 RootZoneDatabase.csv 不可直接使用官方文件。
 官方只有 generic 和 country 两个类别。 
 ---
