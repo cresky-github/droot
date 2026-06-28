@@ -225,7 +225,7 @@ example.com
 ## 推断逻辑说明
 
 ```
-规范化（去协议头 / 路径 / 脏数据过滤）（预先处理，droot 不负责）
+规范化（预先处理，droot 不负责）
     │
     ▼
 输入域名
@@ -238,7 +238,7 @@ TLD 校验（对照 RootZoneDatabase.txt）
     └─ ──────── 已知 TLD
                    │
                    ▼
-     TLD.EX 及 pseudo-SLD:CN 查询
+     TLD.EX 及 pseudo-sld:cn 查询
                    │
        ┌───────────┴──────────┐
      命中                    未命中
