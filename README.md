@@ -290,9 +290,9 @@ TLD 校验（对照 RootZoneDatabase.txt）
 | 输入 | 输出 | 路径 |
 |---|---|---|
 | `www.example.com` | `example.com` | domain.2 |
-| `a.b.co.uk` | `b.co.uk` | pseudo-sld 命中 → domain.3 |
-| `mail.pku.bj.cn` | `pku.bj.cn` | pseudo-sld:cn 命中 → domain.3 |
-| `www.moe.gov.cn` | `moe.gov.cn` | pseudo-sld 命中 → domain.3 |
+| `a.b.co.uk` | `b.co.uk` | 命中 pseudo-sld → domain.3 |
+| `mail.pku.bj.cn` | `pku.bj.cn` | 命中 pseudo-sld:cn → domain.3 |
+| `www.moe.gov.cn` | `moe.gov.cn` | 命中 pseudo-sld → domain.3 |
 
 ---
 
