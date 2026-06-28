@@ -1,4 +1,6 @@
-# droot — High‑Performance Root‑Domain Inference Engine
+[中文版](https://github.com/cresky-github/droot/edit/main/README.md)
+
+# droot — High‑Performance Root‑Domain Inference Engine 
 
 droot is a **high‑performance, data‑driven, extensible root‑domain inference engine**,  
 used to accurately identify **real registrable root‑domains** from large‑scale domain lists.
