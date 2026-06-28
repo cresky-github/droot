@@ -292,7 +292,7 @@ TLD 校验（对照 RootZoneDatabase.txt）
 | `www.example.com` | `example.com` | domain.2 |
 | `a.b.co.uk` | `b.co.uk` | pseudo-sld 命中 → domain.3 |
 | `mail.pku.bj.cn` | `pku.bj.cn` | pseudo-sld:cn 命中 → domain.3 |
-| `www.moe.gov.cn` | `moe.gov.cn` | pseudo-sld:cn 命中 → domain.3 |
+| `www.moe.gov.cn` | `moe.gov.cn` | pseudo-sld 命中 → domain.3 |
 
 ---
 
