@@ -348,14 +348,11 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
 - 剔除 domain.2 中的省级域名
 - 提取 domain.3 中的省级域名
 
-```
-
 | 域名 | 输出 | 有效性 |
 |---|---|---|
 | bj.cn | bj.cn | 错 |
 | example.bj.cn | example.bj.cn | 对 |
 
-```
 
 **补丁行为**
 
