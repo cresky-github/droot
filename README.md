@@ -146,7 +146,7 @@ RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写
 
 ---
 
-## 依赖
+## 🧬 依赖
 
 | 工具 | 用途 |
 |---|---|
@@ -157,7 +157,7 @@ RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写
 
 ---
 
-## 配置
+## 🛠️ 配置
 
 **使用前，需修改脚本中的数据库文件路径**，默认路径为：
 
@@ -177,7 +177,8 @@ TLD="/etc/geo/data/RootZoneDatabase.txt"
 
 ---
 
-## 用法
+## 🚀 使用方法
+> 脚本接受两个参数：输入文件路径（原始域名列表）和输出文件路径（提炼后的基础根域名数据集）。
 
 ```bash
 droot /path/to/input_file /path/to/output_file
