@@ -382,8 +382,8 @@ pseudo-sld:cn 查询
 | `blog.example.bj.cn` | `bj.cn` ✗ | `example.bj.cn` ✓ |
 | `www.moe.gov.cn` | `moe.gov.cn` ✓ | `moe.gov.cn` ✓（一致） |
 
-> **注意**：`gov.cn` / `edu.cn` 本身作为注册主体直接使用时（即输入仅有两个标签），
-> 补丁不做升级，保持 `domain.2` 输出，避免越界取空标签。
+> **注意**：`gov.cn` / `edu.cn` 由 pseudo-sld 处理。，
+> pseudo-sld:cn 不处理。
 
 ---
 
