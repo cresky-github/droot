@@ -139,7 +139,7 @@ RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写
 | `co.uk` | `co` | 英国商业域 |
 | `net.jp` | `net` | 日本网络域 |
 
-| pseudo-SLD:CN | 原型 | 说明 |
+| pseudo-sld:cn | 原型 | 说明 |
 |---|---|---|
 | `bj.cn` | `cn` | 中国(北京）二级域 |
 | `hk.cn` | `cn` | 中国(香港）二级域 |
