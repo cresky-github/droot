@@ -382,7 +382,7 @@ pseudo-sld:cn 查询
 | `blog.example.bj.cn` | `bj.cn` ✗ | `example.bj.cn` ✓ |
 | `www.moe.gov.cn` | `moe.gov.cn` ✓ | `moe.gov.cn` ✓（一致） |
 
-> **注意**：`gov.cn` / `edu.cn` 由 pseudo-sld 处理。，
+> **注意**：`gov.cn` / `edu.cn` 等由 pseudo-sld 处理。，
 > pseudo-sld:cn 不处理。
 
 ---
