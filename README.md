@@ -102,8 +102,7 @@ RootZoneDatabase.csv 不可直接使用官方文件。
 
 ---
 
-## Pseudo-SLD（伪二级域名构造器）
-## Pseudo-SLD:CN（伪二级域名构造器）
+## Pseudo-SLD 及 Pseudo-SLD:CN，伪二级域名构造器
 
 pseudo-SLD 及 Pseudo-SLD:CN（中国特有）是各国用于构造二级国家域名的"伪 TLD"。  
 真正的注册主体不是在 TLD 下，而是在这个伪二级域名下。
