@@ -1,3 +1,5 @@
+[English](https://github.com/cresky-github/droot/edit/main/README.EN.md)
+
 # droot — 高性能根域名推断引擎
 
 droot 是一个**高性能、数据驱动、可扩展的根域名（root-domain）推断引擎**，  
