@@ -280,10 +280,10 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
       ▼
 ┌─────────────────────────────────┐
 │  country.country 补丁           │
-│  TLD ∈ country &&               │
-│  label[-2] ∈ country_labels ?   │
+│  TLD ∈ country &&              │
+│  label[-2] ∈ country_labels ?  │
 │  是 → 升级为 domain.3           │
-│  否 → 保持主管道结果            │
+│  否 → 保持主管道结果             │
 └─────────────────────────────────┘
 ```
 
