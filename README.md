@@ -356,7 +356,7 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
 
 **补丁行为**
 
-对所有匹配 `\.cn$` 的域名，**相同部分，由 pseudo-sld 处理**，
+对所有匹配 `\.cn$` 的域名，**由 pseudo-sld 处理了部分，省级域名由 pseudo-sld:cn 处理**，
 统一强制执行 `domain.3` 提取策略：
 
 ```
