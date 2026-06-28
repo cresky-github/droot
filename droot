@@ -2,7 +2,12 @@
 
 
 NPROC=$(nproc)
-
+DATA="/etc/geo/data/RootZoneDatabase.csv"
+# IAIA 官方数据 https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+# 使用之前，把内容转为小写
+# tr '[:upper:]' '[:lower:]' < tlds-alpha-by-domain.txt \
+#   | sort --parallel="$(nproc)" -u -o RootZoneDatabase.txt
+TLD="/etc/geo/data/RootZoneDatabase.txt" 
 
 isort(){ sort --parallel="${NPROC:-$(nproc)}" -u "$1" -o "$1"; }
 osort(){ sort --parallel="${NPROC:-$(nproc)}" -u -o "$1"; }
@@ -25,8 +30,9 @@ awk -v FS="|" '
     $3=="sponsored" { print $2 > "tld.sponsored" }
     $3=="infrastructure" { print $2 > "tld.infrastructure" }
     $3=="pseudo-sld" { print $2 > "tld.pseudo" }
+    $3=="pseudo-sld:cn" { print $2 > "tld.pseudo.cn" }
     { print $2 > "tld.all" }
-' "/etc/geo/data/RootZoneDatabase.csv"
+' DATA
 isort tld.all
 isort tld.original
 isort tld.generic
@@ -35,9 +41,10 @@ isort tld.country
 isort tld.sponsored
 isort tld.infrastructure
 isort tld.pseudo
+isort tld.pseudo.cn
 
 tr '[:upper:]' '[:lower:]' < $1 | osort INPUT
-awk -v FS="." '{print $NF}' INPUT | osort tld.domain
+tr '[:upper:]' '[:lower:]' < TLD | osort tld.domain
 comm -23 tld.domain tld.all | osort TLD.EX
 cat tld.infrastructure >> TLD.EX
 sed 's/^/\\./g; s/$/$/' TLD.EX > patterns.TLD.EX
@@ -56,11 +63,14 @@ isort domain.3.dset
 > domain.dset
 
 # 需要剔除的 2 label 域名
+# country.country 形式
 # original.country 形式
 # sponsored.country 形式
 # pseudo.country 形式
+# pseudo:cn.country 形式
 sed 's/^/\\./g; s/$/$/' tld.country > patterns.country
 sort --parallel="${NPROC:-$(nproc)}" -u \
+    tld.country \
     tld.original \
     tld.sponsored \
     tld.pseudo \
@@ -68,14 +78,22 @@ sort --parallel="${NPROC:-$(nproc)}" -u \
 sed 's/^/\^/; s/$/\\./' tld.ex > patterns.ex
 rg -f patterns.country domain.2.dset \
     | rg -f patterns.ex \
-    | osort EX
+    >> EX
+sed 's/^/\^/; s/$/\\./' tld.pseudo.cn > patterns.ex
+rg "\.cn$" domain.2.dset \
+    | rg -f patterns.ex \
+    >> EX
+isort EX
 comm -23 domain.2.dset EX >> domain.dset
 
 # 需要保留的 3 label 域名
+# .country.country 形式
 # .original.country 形式
 # .sponsored.country 形式
 # .pseudo.country 形式
+# .pseudo:cn.country 形式
 sort --parallel="${NPROC:-$(nproc)}" -u \
+    tld.country \
     tld.original \
     tld.sponsored \
     tld.pseudo \
@@ -84,6 +102,11 @@ sed 's/^/\\./; s/$/\\./' tld.reserve > patterns.reserve
 rg -f patterns.country domain.3.dset \
     | rg -f patterns.reserve \
     >> domain.dset
+sed 's/^/\\./; s/$/\\./' tld.pseudo.cn > patterns.reserve
+rg "\.cn$" domain.3.dset \
+    | rg -f patterns.reserve \
+    >> domain.dset
+
 
 # 删除空行及清洗一些脏数据
 sed -i "/^$/d;/^[-]/d;/-[.]/d;/[-]$/d" domain.dset
