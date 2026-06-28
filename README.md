@@ -275,16 +275,7 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
 **在管道中的位置**
 
 ```
-主分类管道输出
-      │
-      ▼
-┌─────────────────────────────────┐
-│  country.country 补丁           │
-│  TLD ∈ country &&              │
-│  label[-2] ∈ country_labels ?  │
-│  是 → 升级为 domain.3           │
-│  否 → 保持主管道结果             │
-└─────────────────────────────────┘
+整合到 TLD.EX 一并执行
 ```
 
 ---
@@ -317,9 +308,9 @@ example.bj.cn  →  bj.cn  ← 错（应为 example.bj.cn）
       ▼
 pseudo-sld:cn 查询
       │
-      ├─ 未命中 ──→ 保留 domain.2（补丁不介入）
+      ├─ 未命中 ——→ 保留 domain.2（补丁不介入）
       │
-      └─ 命中 ──→ 提取 domain.3
+      └─ 命中 ——→ 提取 domain.3
                   label[-3] + label[-2] + ".cn"
 ```
 
