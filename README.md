@@ -124,7 +124,7 @@ RootZoneDatabase.txt   ← 根区数据库文本(基于IANA官方，转成小写
 ## 伪二级域名构造器，构造二级国家域名的"伪 TLD
 
 - pseudo-sld（全球通用）
-- pseudo-sld:cn（中国特有，original 类别 及 ac 删除，因为 pseudo-sld 包含了）
+- pseudo-sld:cn（中国特有）
 
 真正的注册主体不是在 TLD 下，而是在这个伪二级域名下。
 
