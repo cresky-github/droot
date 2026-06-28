@@ -337,11 +337,7 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
 
 ### 补丁 2：`\.cn$` — 中国域名全量兜底
 
-- 省市地方 SLD：`bj.cn` `sh.cn` `gz.cn` `tj.cn` `cq.cn` … 30+ 个
-
-pseudo-sld 表无论收录多完整，都存在遗漏省市条目的风险。
-一旦某个省市 sld 未被收录，主管道会输出错误的 `domain.2`
-这时就需要 pseudo-sld:cn 再次处理：
+利用省级sld处理 domain.2 和 domain.3。
 
 ```
 example.bj.cn  →  bj.cn  ← 错（应为 example.bj.cn）
