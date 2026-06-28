@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# 确保 comm 和 sort 使用相同的排序规则，防止 comm 报错
+export LC_ALL=C
 
 NPROC=$(nproc)
+
 DATA="/etc/geo/data/RootZoneDatabase.csv"
 # IAIA 官方数据 https://data.iana.org/TLD/tlds-alpha-by-domain.txt
 # 使用之前，把内容转为小写
@@ -17,10 +20,19 @@ if [ "$#" -ne 2 ]; then
     exit 1
 fi
 
-DATE=`date +"%Y%m%d%H%M%S"`
-cd /
-mkdir -p "/tmp/droot/$DATE"
-cd "/tmp/droot/$DATE"
+# 获取绝对路径，防止 cd 切换目录后找不到输入输出文件
+INPUT_SRC=$(realpath "$1")
+OUTPUT_SRC=$(realpath "$2")
+
+DATE=$(date +"%Y%m%d%H%M%S")
+TMP_DIR="/tmp/droot/$DATE"
+
+mkdir -p "$TMP_DIR"
+cd "$TMP_DIR" || exit 1
+
+# 修复：优雅的资源清理机制
+# 无论脚本正常结束还是中途报错被杀，都会自动清理临时目录
+trap 'rm -rf "$TMP_DIR"' EXIT
 
 awk -v FS="|" '
     $3=="original" { print $2 > "tld.original" }
@@ -32,7 +44,7 @@ awk -v FS="|" '
     $3=="pseudo-sld" { print $2 > "tld.pseudo" }
     $3=="pseudo-sld:cn" { print $2 > "tld.pseudo.cn" }
     { print $2 > "tld.all" }
-' DATA
+' "$DATA"
 isort tld.all
 isort tld.original
 isort tld.generic
@@ -43,8 +55,8 @@ isort tld.infrastructure
 isort tld.pseudo
 isort tld.pseudo.cn
 
-tr '[:upper:]' '[:lower:]' < $1 | osort INPUT
-tr '[:upper:]' '[:lower:]' < TLD | osort tld.domain
+tr '[:upper:]' '[:lower:]' < "$INPUT_SRC" | osort INPUT
+tr '[:upper:]' '[:lower:]' < "$TLD" | osort tld.domain
 comm -23 tld.domain tld.all | osort TLD.EX
 cat tld.infrastructure >> TLD.EX
 sed 's/^/\\./g; s/$/$/' TLD.EX > patterns.TLD.EX
@@ -112,10 +124,4 @@ rg "\.cn$" domain.3.dset \
 sed -i "/^$/d;/^[-]/d;/-[.]/d;/[-]$/d" domain.dset
 
 # 保存文件
-sort --parallel="${NPROC:-$(nproc)}" -u domain.dset -o $2
-
-cd /tmp || exit 1
-rm -rf "/tmp/droot/$DATE"
-
-
-
+sort --parallel="${NPROC:-$(nproc)}" -u domain.dset -o "$OUTPUT_SRC"
