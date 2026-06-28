@@ -343,12 +343,18 @@ example.jp.jp  →  example.jp.jp   （domain.3，正确）
 
 ---
 
-### 补丁 2：`\.cn$` — 中国域名全量兜底
+### 补丁 2：`\.cn$` — 中国省级域名处理
 
-利用省级sld处理 domain.2 和 domain.3。
+- 剔除 domain.2 中的省级域名
+- 提取 domain.3 中的省级域名
 
 ```
-example.bj.cn  →  bj.cn  ← 错（应为 example.bj.cn）
+
+| 域名 | 输出 | 有效性 |
+|---|---|---|
+| bj.cn | bj.cn | 错 |
+| example.bj.cn | example.bj.cn | 对 |
+
 ```
 
 **补丁行为**
