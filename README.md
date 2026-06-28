@@ -87,7 +87,8 @@ https://www.domcop.com/files/top/top10milliondomains.csv.zip
 ```
 
 如需更新规则，只需替换对应数据文件，无需修改脚本逻辑。
-
+RootZoneDatabase.csv 不可直接使用官方文件。
+官方只有 generic 和 country 两个类别。 
 ---
 
 ### ✔ 干净的输出
