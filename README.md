@@ -217,7 +217,7 @@ example.com
     ▼
 TLD 校验（对照 RootZoneDatabase.txt）
     │
-    ├─ 未知 TLD ——→ 丢弃 / domain.2 回退
+    ├─ 未知 TLD ——→ 丢弃
     │
     └─ 已知 TLD
           │
