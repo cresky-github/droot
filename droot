@@ -21,8 +21,8 @@ if [ "$#" -ne 2 ]; then
 fi
 
 # 获取绝对路径，防止 cd 切换目录后找不到输入输出文件
-INPUT_SRC=$(realpath "$1")
-OUTPUT_SRC=$(realpath "$2")
+SRC=$(realpath "$1")
+DST=$(realpath "$2")
 
 DATE=$(date +"%Y%m%d%H%M%S")
 TMP_DIR="/tmp/droot/$DATE"
@@ -55,7 +55,7 @@ isort tld.infrastructure
 isort tld.pseudo
 isort tld.pseudo.cn
 
-tr '[:upper:]' '[:lower:]' < "$INPUT_SRC" | osort INPUT
+tr '[:upper:]' '[:lower:]' < "$SRC" | osort INPUT
 tr '[:upper:]' '[:lower:]' < "$TLD" | osort tld.domain
 comm -23 tld.domain tld.all | osort TLD.EX
 cat tld.infrastructure >> TLD.EX
@@ -124,4 +124,4 @@ rg "\.cn$" domain.3.dset \
 sed -i "/^$/d;/^[-]/d;/-[.]/d;/[-]$/d" domain.dset
 
 # 保存文件
-sort --parallel="${NPROC:-$(nproc)}" -u domain.dset -o "$OUTPUT_SRC"
+sort --parallel="${NPROC:-$(nproc)}" -u domain.dset -o "$DST"
