@@ -333,7 +333,7 @@ pseudo-sld:cn 查询
 输入域名
     │
     ▼
-规范化 → TLD 校验
+规范化:TLD 校验
     │
     ▼
 TLD.EX 查询 → domain.2 / domain.3 (整合了补丁 1：country.country 修正)
