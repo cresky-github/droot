@@ -1,7 +1,8 @@
 ---
 ## 1. 2026/6/29 
-### pseudo-sld 类别建议删除：
-### It is recommended to delete the pseudo-sld category:
+- 类别内容建议删除
+- Category content is recommended for deletion
+### pseudo-sld：
 - github
 - amazonaws
 - dyndns
