@@ -7,18 +7,19 @@
 
 > pseudo-sld：
 
-- amazonaws
-- asn
-- asso
-- cloudfront
-- ddns
-- dyndns
-- firm
-- github
-- info
-- pages
-- parliament
-- per
-- police
-- school
+  - amazonaws
+  - asn
+  - asso
+  - cloudfront
+  - ddns
+  - dyndns
+  - firm
+  - github
+  - info
+  - pages
+  - parliament
+  - per
+  - police
+  - school
+
 ---
