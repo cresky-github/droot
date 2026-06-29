@@ -6,4 +6,7 @@
 - dyndns
 - school
 - cloudfront
+- ddns
+- pages
+- info
 ---
