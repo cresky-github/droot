@@ -5,6 +5,7 @@
 ### pseudo-sld：
 - amazonaws
 - asn
+- asso
 - cloudfront
 - ddns
 - dyndns
