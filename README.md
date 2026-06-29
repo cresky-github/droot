@@ -1,4 +1,4 @@
-[English Version](README.EN.md)
+[English Version](README.EN.md)        [更改日志](change.log.md)
 
 
 # droot — 高性能根域名推断引擎
