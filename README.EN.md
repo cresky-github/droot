@@ -1,4 +1,4 @@
-[中文版本](README.md)
+[中文版本](README.md)        [Change Log](change.log.md)
 
 # droot — High‑Performance Root‑Domain Inference Engine 
 
