@@ -9,6 +9,7 @@
 - cloudfront
 - ddns
 - dyndns
+- firm
 - github
 - info
 - pages
